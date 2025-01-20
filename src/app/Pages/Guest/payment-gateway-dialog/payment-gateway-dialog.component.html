@@ -1,0 +1,61 @@
+<div mat-dialog-content class="text-center">
+  <!-- Payment Title -->
+  <h2 *ngIf="!paymentSuccessful && !isProcessing" class="text-xl font-bold">Enter Card Details</h2>
+  <h2 *ngIf="paymentSuccessful" class="text-xl font-bold text-green-600">Payment Successful!</h2>
+  <h2 *ngIf="isProcessing" class="text-xl font-bold text-green-600">Processing Payment...</h2>
+
+  <!-- Payment Form -->
+  <div *ngIf="!paymentSuccessful && !isProcessing" class="mt-4 space-y-4">
+    <!-- Card Number -->
+    <mat-form-field class="w-full">
+      <mat-label>Card Number</mat-label>
+      <input matInput maxlength="16" [(ngModel)]="cardNumber" type="text" />
+    </mat-form-field>
+    <p class="text-red-600 text-sm" *ngIf="isSubmitted && !isValidCardNumber()">Invalid Card Number</p>
+
+    <!-- Expiry Date -->
+    <mat-form-field class="w-full">
+      <mat-label>Expiry Date</mat-label>
+      <input matInput [(ngModel)]="expiryDate" placeholder="MM/YY" type="text" />
+    </mat-form-field>
+    <p class="text-red-600 text-sm" *ngIf="isSubmitted && !isValidExpiryDate()">Invalid Expiry Date</p>
+
+    <!-- CVV -->
+    <mat-form-field  class="w-full">
+      <mat-label>CVV</mat-label>
+      <input matInput maxlength="3" [(ngModel)]="cvv" type="password" />
+    </mat-form-field>
+    <p class="text-red-600 text-sm" *ngIf="isSubmitted && !isValidCVV()">Invalid CVV</p>
+  </div>
+
+  <!-- Centered Processing Spinner -->
+  <div class="center-loader" *ngIf="isProcessing">
+    <mat-spinner [color]="'primary'" diameter="60" class="text-green-500"></mat-spinner>
+    <p class="mt-2 text-lg text-green-600">Processing your payment, please wait...</p>
+  </div>
+
+  <!-- Payment Success Message -->
+  <div class="mt-4" *ngIf="paymentSuccessful">
+    <mat-icon class="text-green-500" style="font-size: 60px;">check_circle</mat-icon>
+    <p class="mt-2 text-lg text-gray-600">Thank you! Your payment is complete.</p>
+  </div>
+</div>
+
+<div mat-dialog-actions class="justify-center mt-4">
+  <button
+    mat-raised-button
+    class="primary-brown-button" 
+    *ngIf="!paymentSuccessful && !isProcessing"
+    (click)="processPayment()"
+  >
+    Pay Now
+  </button>
+  <button
+    mat-raised-button
+    color="warn"
+    *ngIf="paymentSuccessful"
+    (click)="closeDialog()"
+  >
+    Close
+  </button>
+</div>

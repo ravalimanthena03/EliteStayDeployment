@@ -1,0 +1,126 @@
+<div class="container mx-auto p-6">
+    <h2 class="text-2xl font-bold mb-4 text-center text-[#74512D]">Add a New Room</h2>
+    <form [formGroup]="roomForm" (ngSubmit)="onSubmit()" class="space-y-6">
+      <!-- Room Type -->
+      <mat-form-field appearance="fill" class="w-full">
+        <mat-label>Room Type</mat-label>
+        <mat-select formControlName="roomType" required>
+          <mat-option *ngFor="let type of roomTypes" [value]="type">{{ type }}</mat-option>
+        </mat-select>
+      </mat-form-field>
+  
+      <!-- Max Persons -->
+      <mat-form-field appearance="fill" class="w-full">
+        <mat-label>Max Persons</mat-label>
+        <input
+          matInput
+          type="number"
+          formControlName="maxPersons"
+          min="1"
+          placeholder="Enter maximum persons"
+        />
+      </mat-form-field>
+  
+      <!-- Price -->
+      <mat-form-field appearance="fill" class="w-full">
+        <mat-label>Price</mat-label>
+        <input matInput type="number" formControlName="price" min="0" placeholder="Enter price" />
+      </mat-form-field>
+  
+      <!-- Bed Type -->
+      <mat-form-field appearance="fill" class="w-full">
+        <mat-label>Bed Type</mat-label>
+        <mat-select formControlName="bedType" required>
+          <mat-option *ngFor="let bed of bedTypes" [value]="bed">{{ bed }}</mat-option>
+        </mat-select>
+      </mat-form-field>
+  
+      <!-- View -->
+      <mat-form-field appearance="fill" class="w-full">
+        <mat-label>View</mat-label>
+        <input matInput formControlName="view" placeholder="Enter view type" />
+      </mat-form-field>
+  
+      <!-- Status -->
+      <mat-form-field appearance="fill" class="w-full">
+        <mat-label>Status</mat-label>
+        <mat-select formControlName="status" required>
+          <mat-option value="Available">Available</mat-option>
+          <mat-option value="Clean">Clean</mat-option>
+          <mat-option value="Occupied">Occupied</mat-option>
+        </mat-select>
+      </mat-form-field>
+  
+      <!-- Availability -->
+      <mat-checkbox formControlName="availability">Available</mat-checkbox>
+  
+      <!-- Amenities -->
+      <div class="w-full">
+        <mat-form-field appearance="fill" class="w-full">
+          <mat-label>Add Amenity</mat-label>
+          <input
+            matInput
+            [matAutocomplete]="autoAmenity"
+            [(ngModel)]="amenityInput"
+            (keyup.enter)="addAmenity()"
+          />
+          <mat-autocomplete #autoAmenity="matAutocomplete">
+            <mat-option *ngFor="let amenity of availableAmenities" (click)="addAmenity(amenity)">
+              {{ amenity }}
+            </mat-option>
+          </mat-autocomplete>
+        </mat-form-field>
+        <mat-chip-listbox>
+          <mat-chip
+            *ngFor="let amenity of selectedAmenities"
+            [removable]="true"
+            (removed)="removeAmenity(amenity)"
+          >
+            {{ amenity }}
+            <mat-icon matChipRemove>cancel</mat-icon>
+          </mat-chip>
+        </mat-chip-listbox>
+      </div>
+  
+      <!-- Services -->
+      <div class="w-full">
+        <mat-form-field appearance="fill" class="w-full">
+          <mat-label>Add Service</mat-label>
+          <input
+            matInput
+            [matAutocomplete]="autoService"
+            [(ngModel)]="serviceInput"
+            (keyup.enter)="addService()"
+          />
+          <mat-autocomplete #autoService="matAutocomplete">
+            <mat-option *ngFor="let service of availableServices" (click)="addService(service)">
+              {{ service }}
+            </mat-option>
+          </mat-autocomplete>
+        </mat-form-field>
+        <mat-chip-listbox>
+          <mat-chip
+            *ngFor="let service of selectedServices"
+            [removable]="true"
+            (removed)="removeService(service)"
+          >
+            {{ service }}
+            <mat-icon matChipRemove>cancel</mat-icon>
+          </mat-chip>
+        </mat-chip-listbox>
+      </div>
+  
+      <!-- Submit Button -->
+      <div class="text-center">
+        <button
+          mat-raised-button
+          color="primary"
+          [disabled]="roomForm.invalid"
+          class="bg-[#74512D] text-white"
+        >
+          Add Room
+        </button>
+      </div>
+    </form>
+  </div>
+  

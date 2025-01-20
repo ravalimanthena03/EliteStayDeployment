@@ -1,0 +1,14 @@
+<div class="p-8 bg-gray-100">
+    <h2 class="text-2xl font-semibold mb-6">Rooms Available</h2>
+    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+        <div *ngFor="let room of rooms" class="bg-white rounded-lg shadow-md cursor-pointer transition-transform transform hover:-translate-y-1" (click)="updateRoom(room.id)">
+            <img class="w-full h-48 object-cover rounded-t-lg" [src]="room.imagePath" alt="{{ room.roomType }}">
+            <div class="p-4">
+                <h3 class="text-lg font-bold mb-2">{{ room.roomType }}</h3>
+                <p class="text-gray-600">Max Persons: {{ room.maxPersons }}</p>
+                <p class="text-gray-600">Price: ${{ room.price }}</p>
+                <p class="text-gray-600">Status: {{ room.status }}</p>
+            </div>
+        </div>
+    </div>
+</div>
