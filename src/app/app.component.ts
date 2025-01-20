@@ -14,7 +14,7 @@ export class AppComponent implements OnInit {
 
   ngOnInit(): void {
     this.role = localStorage.getItem('role');
-    //this.router.navigate(['/home']);
+    this.router.navigate(['/home']);
     if (!this.role) {
       this.router.navigate(['/home']);
     }
