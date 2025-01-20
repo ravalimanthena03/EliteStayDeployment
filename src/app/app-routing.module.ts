@@ -24,7 +24,7 @@ import { CreateAccountComponent } from './Pages/Manager/create-account/create-ac
 import { UpdateRoomsComponent } from './Pages/Manager/update-rooms/update-rooms.component';
 import { AuthGuard } from './guards/auth.guard';
 const routes: Routes = [
-  { path: 'home', component: HomeComponent , canActivate: [AuthGuard], data: { roles: ['Guest','Receptionist','Housekeeping','Admin', 'Manager'] }},
+  { path: 'home', component: HomeComponent},
   { path: 'signin', component: SigninComponent},
   { path: 'rooms', component: RoomComponent , canActivate: [AuthGuard], data: { roles: ['Guest','Receptionist','Housekeeping','Admin', 'Manager'] }},
   { path: 'all-rooms', component:AllRoomsComponent , canActivate: [AuthGuard], data: { roles: ['Guest','Receptionist','Housekeeping','Admin', 'Manager'] }},
